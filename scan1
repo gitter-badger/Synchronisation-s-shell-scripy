@@ -1,0 +1,44 @@
+#! /bin/sh
+
+#On cherche à synchroniser un ficher ou un dossier
+#Pour cela, on vérifie si le dossier source ou fichier source
+#existe bel et bien puis on vérifie l'existence de ce fameux dossier
+#cible.
+
+. ./lib
+
+echo "Voulez-vous synchroniser un dossier ?"
+echo "Tapez o pour un continuer ou n pour quitter le programme\n"
+
+read var #Variable de confirmation 
+
+if [ $var = "o" ] ; then 
+	echo "Lorsque vous aurez déterminé quels répertoires\nvous voulez synchronisé, tapez q pour quitter la page qui va suivre:\n(Tapez a pour quitter)"
+	Confirmation
+	clear
+
+	ls -CpsR /home |less
+
+	clear
+	echo  "Tapez le chemin absolu menant au dossier que vous souhaitez synchroniser: "
+	read repsrc 
+
+	if test -d $repsrc/  ; then
+			echo  "Tapez le chemin absolu menant au dossier cible: "
+			read repcib
+			if   test -d $repcib/; then #On effectue la copie
+				cp -Ruiv $repsrc/  $repcib/
+				echo "Synchronisation effectuée"
+			else #On affiche une erreur et on arrete le prog
+			echo "Erreur:$repcib n'est pas un répertoire.">&2
+			exit 1
+			fi
+	else 
+	echo  "Erreur:$repsrc n'est pas un répertoire.">&2
+	exit 1
+	fi
+fi
+
+if  [ $var = "n" ]  ; then
+	echo  "Au revoir"
+fi
