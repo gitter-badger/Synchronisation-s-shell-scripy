@@ -1,0 +1,61 @@
+#! /bin/sh
+
+Verific()
+{
+echo "Tapez le chemin menant à ce fichier: "
+read fic #Fichier à synchroniser
+if  test -f $fic  ; then
+	stock=$fic
+        clear
+        conf=1
+else
+      echo "Le chemin que vous avez écrit est incorrect ou inexistant."
+fi
+}
+
+Verifdoc()
+{
+echo "Tapez le chemin menant au dossier:"
+read rep #Dossier source
+if  test -d $rep ; then
+	stock=$rep/
+	clear
+	conf=1
+else
+	echo "Le chemin que vous avez écrit est incorrect ou inexistant. "
+fi
+}
+
+Recul()
+{
+clear
+cd ..
+ls
+}
+
+Copactu()
+{
+echo "Tapez le nom du répertoire"
+read rep
+if test -d $rep ; then
+	if test -d $stock ; then
+		cp -Riv $stock* $rep/
+		note=1
+		echo "Synchronisation effectuée"
+	fi
+	if test -f $stock ; then
+		cp -Riv $stock $rep/
+		note=1
+		echo "Synchronisation effectuée"
+	fi
+fi
+}
+
+Avance()
+{
+echo "Vous souhaitez passer par quel répertoire pour avancer dans l'arborescence?"
+read rep
+cd $rep
+clear
+ls -p
+}

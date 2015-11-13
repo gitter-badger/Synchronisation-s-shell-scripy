@@ -1,0 +1,67 @@
+#! /bin/sh
+#On charge la librairie contenant les fonctions nécessaire au fonctionnenment du programme.
+. ./Libprog
+#Dans ce programme, on cherche à synchroniser deux répertoires correspondant à deux postes et de les synchroniser.
+
+note=0
+conf=0
+echo "Souhaitez-vous commencer l'opération de synchronisation?\n(Tapez o pour continuer ou tapez n pour quitter):"
+
+read var #Variable de confirmation
+
+while [ "$var" != 'o' ] && [ "$var" != 'n' ]
+do 
+	echo "Tapez o pour continuer ou tapez n pour quitter le programme"
+	read var
+	if [ "$var" = 'o' ] ; then
+		break
+	fi
+	if [ "$var" = 'n' ] ; then
+		clear
+		echo "A la prochaine"
+		exit 1
+	fi 
+done
+
+if [ "$var" = 'o' ] ; then
+	clear
+	echo "Voulez vous synchroniser un fichier ou un dossier? (Tapez f pour un fichier ou d pour un dossier)"
+	read var
+	if [ "$var" = 'f' ] ; then 
+	while [ $conf = 0 ]
+	do
+		Verific
+	done
+	fi	
+
+	if [ "$var" = 'd' ] ; then
+		while [ $conf = 0 ]
+		do
+			Verifdoc
+		done
+	fi
+
+ls -p	
+ 
+while [ $note = 0 ]
+do
+	echo "Voulez-vous synchroniser dans ce dossier, dans un dossier parmi la liste ou reculer dans l'arborescence?"
+	echo "Tapez r pour reculer dans l'arborescence."
+	echo "Tapez a puis le nom du repertoire dans lequel vous souhaitez synchroniser."
+	echo "Tapez y puis le nom du répertoire par lequel vous voulez avancer dans l'arborescence."
+
+	read var
+	if [ "$var" = 'y' ] ; then
+		Avance
+	fi
+
+	if [ "$var" = 'r' ] ; then
+		Recul
+	fi	
+
+	if [ "$var" = 'a' ] ; then
+		Copactu
+	fi
+done
+fi
+echo "A la prochaine"
